@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+    <body>
+       <p id="thongBao" hidden></p>
+        <div class="entry-modal" id="entry-modal">
+          
+            <input id="nhap" class="nhap" placeholder="nhap Ma Phong">
+            <div>
+                <button onclick="taoPhong()" data-toggle="collapse" data-target="#demo">Tao Phong</button>
+                <button onclick="vaoPhong()" data-toggle="collapse" data-target="#demo">Vao Phong</button>
+            </div>
+        </div>
+
+<div id="demo" class="collapse">
+<iframe width="640" height="480" src="nhat.html" frameborder="0" ></iframe>
+</div>
+        <div class="meet-area">
+            <video id="cameraKhach" ></video>
+            <video id="cameraBanThan"></video>
+        </div>
+    </body>
+
+    <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <script>const PRE = "DELTA"
+const SUF = "MEET"
+var maPhongz;
+var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+var local_stream;
+function taoPhong(){
+   
+    let room = document.getElementById("nhap").value;
+    
+    maPhongz = PRE+room+SUF;
+    let peer = new Peer(maPhongz)
+    peer.on('open', (id)=>{
+        hideModal()
+        getUserMedia({video: true, audio: true}, (stream)=>{
+            local_stream = stream;
+            setLocalStream(local_stream)
+        },(err)=>{
+          
+        })
+      
+    })
+    peer.on('call',(call)=>{
+        call.answer(local_stream);
+        call.on('stream',(stream)=>{
+            setRemoteStream(stream)
+        })
+    })
+}
+
+function setLocalStream(stream){
+    
+    let video = document.getElementById("cameraBanThan");
+    video.srcObject = stream;
+    video.muted = true;
+    video.play();
+}
+function setRemoteStream(stream){
+   
+    let video = document.getElementById("cameraKhach");
+    video.srcObject = stream;
+    video.play();
+}
+
+function hideModal(){
+    document.getElementById("entry-modal").hidden = true
+}
+
+function notify(msg){
+    let thongBao = document.getElementById("thongBao")
+    thongBao.innerHTML = msg
+    thongBao.hidden = false
+    setTimeout(()=>{
+        thongBao.hidden = true;
+    }, 3000)
+}
+
+function vaoPhong(){
+  
+    let room = document.getElementById("nhap").value;
+    
+    maPhongz = PRE+room+SUF;
+    hideModal()
+    let peer = new Peer()
+    peer.on('open', (id)=>{
+     
+        getUserMedia({video: true, audio: true}, (stream)=>{
+            local_stream = stream;
+            setLocalStream(local_stream)
+          
+            let call = peer.call(maPhongz, stream)
+            call.on('stream', (stream)=>{
+                setRemoteStream(stream);
+            })
+        }, (err)=>{
+            
+        })
+
+    })
+} </script>
+
+</html>

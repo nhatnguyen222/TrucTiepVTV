@@ -1,0 +1,125 @@
+
+<!doctype html>
+<html>
+<head>
+   <script src="jquery-3.3.1.min.js"></script>
+   <script  src="hls.min.js"></script>
+   <link href="https://frn.rtsp.me/embed/video.css" rel="stylesheet" type="text/css" media="screen">
+   <script src="jquery-ui.js"></script>  
+</head>
+<body>
+ <div class="video_wrapper">
+ <div class="videos">  
+ <video id="video" class="video" ></video>
+          <div class="button_play_big">  </div>
+                <div class="control_wrapper">
+                    <div class="main_control">
+                        <div class="btns">
+                            <div class="play"></div>
+                          <div class="pause"></div>
+                             </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+    <script>
+    var mVideo = document.getElementById("video");
+        var meter = 0;
+        var meter4 = 0;
+        setInterval("test2()", 500);
+function test2() {
+     if ( mVideo.readyState === 4 ){++meter4;}
+
+     if (mVideo.readyState !== 4  &&  mVideo.paused === false ){
+     ++meter;
+     console.log(mVideo.readyState); 
+     }
+}
+        var zvuk  =1;
+        var timer  =600;
+        var a_play  =0;
+   var hd_poz  = 0;
+   var l_poz  = 1;
+   
+    </script> 
+     <script>
+//Link m3u8 để thay thế
+        var n_url = "https://vtvnews-livevtv.vtvdigital.vn/7c9a81990f1fa8e7c6c8d7b624807ba8/1616902333981/vtv3/vtv3@720p.m3u8"; 
+$(".btns, .button_play_big").click(function() {
+    $(".play").toggle();
+    $(".pause").toggle();
+    $(".button_play_big").toggle();
+});
+
+
+var pauses = 1;
+var ur_t = n_url;
+
+
+$( ".video_wrapper" ).mouseover(function() {
+  $(".control_wrapper").css("display", "block");
+});
+$( ".video_wrapper" ).mouseout(function() {
+   $(".control_wrapper").css("display", "none");
+});
+
+
+
+
+if (Hls.isSupported()) {
+ //   var hls = new Hls({maxLoadingDelay: 4, });
+  //   var hls = new Hls({maxLoadingDelay: 4, });
+ var config = {
+     liveDurationInfinity:true,
+};
+
+      var hls = new Hls(config);
+}
+
+
+function loadSource(url) {
+   hls.attachMedia(mVideo); 
+   hls.loadSource(url);
+   hls.startLoad();
+}
+
+$(".play, .button_play_big").click(function () {
+pLaY();
+});
+$(".pause").click(function () {
+    pAuSe();
+    pauses = 1;
+});
+setInterval("tImerPause()", 5000);
+function tImerPause() {
+    if (pauses === 0) {
+        if (mVideo.paused == true) {
+            pAuSe();
+        }
+    }
+}
+if (a_play === 1) {
+    setTimeout(function () {
+        pLaY();
+        aPlayF();
+    }, 1000);
+}
+
+function pLaY() {
+    loadSource(ur_t);
+    console.log("PLAY");
+    mVideo.play();
+    pPlay();
+    pauses = 0;
+}  
+function pAuSe() {
+    hls.stopLoad();
+    mVideo.pause();
+    pauses = 1;
+}
+
+
+             
+    </script></body>
+</html>

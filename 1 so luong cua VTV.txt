@@ -1,0 +1,5 @@
+Truy cap file nhat.html thay doi  n_url bang 1 so luong truc tiep duoi day de thay doi kenh
+VTV1:https://vtvnews-livevtv.vtvdigital.vn/5c791a7b03f640df03089019ab9c8ae1/1616902710882/vtv1/vtv1@720p.m3u8
+VTV2:https://vtvnews-livevtv.vtvdigital.vn/5c791a7b03f640df03089019ab9c8ae1/1616902710882/vtv2/vtv2@720p.m3u8
+VTV3:https://vtvnews-livevtv.vtvdigital.vn/5c791a7b03f640df03089019ab9c8ae1/1616902710882/vtv3/vtv3@720p.m3u8
+VTV4:https://vtvnews-livevtv.vtvdigital.vn/5c791a7b03f640df03089019ab9c8ae1/1616902710882/vtv4/vtv4@720p.m3u8
