@@ -4,7 +4,7 @@
 <head>
    <script src="jquery-3.3.1.min.js"></script>
    <script  src="hls.min.js"></script>
-   <link href="https://frn.rtsp.me/embed/video.css" rel="stylesheet" type="text/css" media="screen">
+   <link href="embed/video.css" rel="stylesheet" >
    <script src="jquery-ui.js"></script>  
 </head>
 <body>
@@ -45,7 +45,7 @@ function test2() {
     </script> 
      <script>
 //Link m3u8 để thay thế
-        var n_url = "https://vtvnews-livevtv.vtvdigital.vn/7c9a81990f1fa8e7c6c8d7b624807ba8/1616902333981/vtv3/vtv3@720p.m3u8"; 
+        var n_url = "http://ott3a.hcmute.edu.vn:1935/livetest/smil:vtv3.smil/playlist.m3u8"; 
 $(".btns, .button_play_big").click(function() {
     $(".play").toggle();
     $(".pause").toggle();
@@ -56,13 +56,6 @@ $(".btns, .button_play_big").click(function() {
 var pauses = 1;
 var ur_t = n_url;
 
-
-$( ".video_wrapper" ).mouseover(function() {
-  $(".control_wrapper").css("display", "block");
-});
-$( ".video_wrapper" ).mouseout(function() {
-   $(".control_wrapper").css("display", "none");
-});
 
 
 
